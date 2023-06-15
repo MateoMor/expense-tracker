@@ -1,4 +1,5 @@
-import { useGlobalState, } from "../../context/GlobalState";
+import { useGlobalState } from "../../context/GlobalState";
+import DeleteButton from "../svg/DeleteButton";
 
 function TransactionItem({ transaction }) {
     // Con esto se traen los datos del contexto global
@@ -16,8 +17,9 @@ function TransactionItem({ transaction }) {
                         // Con esto se filtran las ids y se elimina la que coincida
                         deleteTransaction(transaction.id);
                     }}
+                    className=" bg-red-700 ml-2 leading-none p-1 rounded-md"
                 >
-                    x
+                    <DeleteButton width={10} height={10} />
                 </button>
             </div>
         </li>

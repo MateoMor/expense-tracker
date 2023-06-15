@@ -9,18 +9,21 @@ function TransactionForm() {
     const [description, setDescription] = useState("");
 
     // Nos permite añadir el monto
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState("");
 
     // Con esto se ejecuta addTransaction
     const onSubmit = (e) => {
         e.preventDefault();
+
+        const descriptionValue = description.trim() !== "" ? description : "No description";
+
         addTransaction({
             // Este es el argumento de transaction
             id: window.crypto.randomUUID(), // Con esto accedemos desde el objeto global del nacegador a su elemento crypto y usamos el metodo randomUUID para generar una id
-            description,
+            description: descriptionValue,
             amount: +amount, // El simbolo + se encarga de convertir un string a integer
         });
-        setAmount(0);
+        setAmount("");
         setDescription("");
     };
     return (
@@ -36,7 +39,7 @@ function TransactionForm() {
                 />
                 <input
                     type="number"
-                    step={0.01} // permite indicar el tamaño de los incrementos por botón
+                    step={0.1} // permite indicar el tamaño de los incrementos por botón
                     placeholder="00.00"
                     // Por cada dato recibido se le asignará a el monto
                     onChange={(e) => setAmount(e.target.value)}
