@@ -19,12 +19,18 @@ function ExpenseChart() {
             .filter((transaction) => transaction.amount < 0)
             .reduce((acc, transaction) => (acc += transaction.amount), 0) * -1;
 
+    let totalExpensesPercentage = 100;
+    let totalIncomePercentage = 0;
 
-    const totalExpensesPercentage = Math.round((totalExpenses / totalIncome) * 100) // Los porcentages se calculan con el expenses respecto al income
-    const totalIncomePercentage = 100 - totalExpensesPercentage
+    if (totalIncome > totalExpenses) {
+        totalExpensesPercentage = Math.round(
+            (totalExpenses / (totalIncome != 0 ? totalIncome : 1)) * 100
+        ); // Los porcentages se calculan con el expenses respecto al income
+        totalIncomePercentage = 100 - totalExpensesPercentage;
+    }
 
-    console.log("totalIncomePercentage: ", totalIncomePercentage)
-    console.log("totalExpensesPercentage: ", totalExpensesPercentage)
+    /*     const totalExpensesPercentage = Math.round((totalExpenses / (totalIncome != 0 ? totalIncome : 1)) * 100) // Los porcentages se calculan con el expenses respecto al income
+    const totalIncomePercentage = 100 - totalExpensesPercentage */
 
     return (
         <VictoryPie
